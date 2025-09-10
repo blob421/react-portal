@@ -15,7 +15,7 @@ const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>(
 const API_URL = process.env.EXPO_PUBLIC_PORTAL_IP
   const handleLogin = async () => {
     try {
-      const response = await fetch(`${API_URL}`, {
+      const response = await fetch(`${API_URL}jwt/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -26,8 +26,9 @@ const API_URL = process.env.EXPO_PUBLIC_PORTAL_IP
 console.log("Data:", data);
       if (response.ok) {
         await AsyncStorage.setItem('accessToken', data.access);
+        await AsyncStorage.setItem('refreshToken', data.refresh)
         console.log("Login successful, navigating to Home");
-        navigation.replace('Home');
+        navigation.navigate('Home');
         Alert.alert('Login successful');
         
         // Navigate to another screen or fetch protected data
