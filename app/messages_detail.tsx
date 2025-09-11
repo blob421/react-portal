@@ -3,18 +3,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import styles from '../assets/styles/message_detail';
 import { useRoute } from '@react-navigation/native';
-
+import handleNav from 'navigation/handleNavRoot';
 
 export default function MessageDetail() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const route = useRoute();
+
   const { id } = route.params;
   const API_URL = process.env.EXPO_PUBLIC_PORTAL_IP;
 
   useEffect(() => {
-  
+   
+
     const fetchData = async () => {
+      
+      
       const token = await AsyncStorage.getItem('accessToken');
 
       try {

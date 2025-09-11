@@ -5,39 +5,49 @@ import styles from '../assets/styles/tasks';
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp} from '@react-navigation/native-stack';
-import { RootStackParamList} from '../navigation/types'
-
+import { RootStackParamList, HomestackParamList} from '../navigation/types'
+import handleNav from 'navigation/handleNavRoot';
 
 
 
 export default function Loading() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navRoot = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navHome = useNavigation<NativeStackNavigationProp<HomestackParamList>>();
+   
   const route = useRoute();
   const { id } = route.params;
-  console.log(id)
+  const { photo } = route.params;
+  
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-
-
-  const API_URL = process.env.EXPO_PUBLIC_PORTAL_IP;
-
-  useEffect(() => {
   
+  const API_URL = process.env.EXPO_PUBLIC_PORTAL_IP;
+ 
+  useEffect(() => {
+  let isCancelled = false;
     const isReady = async () => {
+      
+      const token = await AsyncStorage.getItem('accessToken');
+      if (isCancelled) return;
 
       try {
-        const response = await fetch(`${API_URL}loading/${id}/`, {
+        const response = await fetch(`${API_URL}loading/${id}/${photo}/`, {
           method: 'GET',
+           
+             headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
     
         });
 
         const data = await response.json();
-        console.log(data)
+      
       if (data.ready === true){
-        navigation.navigate('Home' ,{screen: 'Profile'})
+         handleNav('HomeStack','Profile', navRoot)
     }
     else{
-         setTimeout(isReady, 2000);
+         setTimeout(isReady, 3000);
     }
    
          
@@ -48,7 +58,10 @@ export default function Loading() {
     };
 
    isReady();
-   
+  
+   return () => {
+    isCancelled = true;
+  };
     
  
 

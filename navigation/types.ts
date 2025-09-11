@@ -2,7 +2,7 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 
 
 export type LoadingStackParamList = {
-  Loading :  {id:string}
+  Loading :  {id:string, photo:string}
 }
 
 export type HomestackParamList = {
@@ -23,11 +23,11 @@ export type TaskStackParamList = {
  
 };
 export type RootStackParamList = {
-  Home: NavigatorScreenParams<HomestackParamList>;
-  Messages: NavigatorScreenParams<MessageStackParamList>;
-  Login: NavigatorScreenParams<LoginStackParamList>;
-  Tasks: NavigatorScreenParams<TaskStackParamList>;
-  Loading : NavigatorScreenParams<LoadingStackParamList>;
+  HomeStack: NavigatorScreenParams<HomestackParamList>;
+  MessageStack: NavigatorScreenParams<MessageStackParamList>;
+  LoginStack: NavigatorScreenParams<LoginStackParamList>;
+  TaskStack: NavigatorScreenParams<TaskStackParamList>;
+  LoadingStack : NavigatorScreenParams<LoadingStackParamList>;
 };
 
 

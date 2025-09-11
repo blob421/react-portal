@@ -28,7 +28,7 @@ console.log("Data:", data);
         await AsyncStorage.setItem('accessToken', data.access);
         await AsyncStorage.setItem('refreshToken', data.refresh)
         console.log("Login successful, navigating to Home");
-        navigation.navigate('Home');
+        navigation.navigate('HomeStack', {screen:'Home'});
         Alert.alert('Login successful');
         
         // Navigate to another screen or fetch protected data

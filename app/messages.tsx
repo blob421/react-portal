@@ -5,18 +5,31 @@ import styles from '../assets/styles/messages';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { RootStackParamList, MessageStackParamList } from '../navigation/types'; 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import handleNav from 'navigation/handleNavParams';
+import checkAuth from 'navigation/checkAuth';
 
-export default function Messages() {
+
+export default function Messages() { 
+  const navMsg = useNavigation<NativeStackNavigationProp<MessageStackParamList>>();
+  const navRoot = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const API_URL = process.env.EXPO_PUBLIC_PORTAL_IP;
-
-  const navigation = useNavigation<NativeStackNavigationProp<MessageStackParamList>>();
+  
+ 
   const [data, setData] = useState(null);
   const [term, setTerm] = useState('');
   const [loading, setLoading] = useState(true);
 
-useFocusEffect(
+useFocusEffect( 
       useCallback(() => {   
+
     const fetchData = async () => {
+      const isAuthenticated = await checkAuth(); 
+
+      if (!isAuthenticated) {
+        console.log('User not authenticated');
+        navRoot.navigate('LoginStack', {screen:'Login'})
+        
+      }
       const token = await AsyncStorage.getItem('accessToken');
 
       try {
@@ -91,8 +104,8 @@ return (
                     {data?.data?.map((message) => (
                     <View key={message.id} style={styles.msg_div}>
 
-                      <Pressable onPress={() => navigation.navigate('Message_detail', 
-                        { id: message.id })}>
+                      <Pressable onPress={() => handleNav('Message_detail', navMsg, navRoot, 
+                        {id: message.id})}>
 
                         <Text style = {[styles.msg_txt, message.new === true && styles.new_msg_txt]}>
                         <Text style={styles.sender}>{message.sender}: </Text> 

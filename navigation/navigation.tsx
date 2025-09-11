@@ -78,13 +78,13 @@ function TaskStackScreens(){
 export default function Navigation() {
   return (
     
-      <Stack.Navigator initialRouteName="Login"
+      <Stack.Navigator initialRouteName="LoginStack"
           screenOptions={{ headerShown: false }} >
-        <Stack.Screen name = 'Login' component = {LoginStackScreen}/>
-        <Stack.Screen name="Home" component={Homestack} />
-        <Stack.Screen name="Messages" component={MessageStack} />
-        <Stack.Screen name='Tasks' component={TaskStackScreens}/>
-        <Stack.Screen name= 'Loading' component={LoadingStackScreen}/>
+        <Stack.Screen name = 'LoginStack' component = {LoginStackScreen}/>
+        <Stack.Screen name="HomeStack" component={Homestack} />
+        <Stack.Screen name="MessageStack" component={MessageStack} />
+        <Stack.Screen name='TaskStack' component={TaskStackScreens}/>
+        <Stack.Screen name= 'LoadingStack' component={LoadingStackScreen}/>
       </Stack.Navigator>
   
   );

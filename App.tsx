@@ -13,22 +13,18 @@ export default function App() {
    const [currentRoute, setCurrentRoute] = useState<string | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (navigationRef.isReady()) {
-        const route = navigationRef.getCurrentRoute()?.name;
-        if (route !== currentRoute) {
-          setCurrentRoute(route || null);
-        }
-      }
-    }, 100); // poll every 100ms
+  const unsubscribe = navigationRef.addListener('state', () => {
+    const route = navigationRef.getCurrentRoute()?.name;
+    setCurrentRoute(route || null);
+  });
 
-    return () => clearInterval(interval);
-  }, [currentRoute]);
+  return unsubscribe;
+}, []);
 
   return (
     <NavigationContainer ref={navigationRef}>
       <Navigation />
-      {currentRoute !== 'Login' && <NavBar />}
+{currentRoute && currentRoute !== 'Login' && <NavBar />}
     </NavigationContainer>
   );
 }

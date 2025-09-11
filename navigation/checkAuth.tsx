@@ -38,6 +38,3 @@ export default async function checkAuth(){
     return true
     }
     
-
-  
-  

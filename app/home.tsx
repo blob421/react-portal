@@ -4,10 +4,13 @@ import { useEffect, useState } from 'react';
 import styles from '../assets/styles/home';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp} from '@react-navigation/native-stack';
-import { HomestackParamList} from '../navigation/types'
+import { RootStackParamList} from '../navigation/types'
+import handleNav from 'navigation/handleNavRoot';
+
 
 export default function Home() {
-  const navigation = useNavigation<NativeStackNavigationProp<HomestackParamList>>();
+
+  const navRoot = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
 
   const [data, setData] = useState(null);
@@ -59,7 +62,7 @@ return (
         </View>
         <View style={styles.profile_div}>
                <Pressable style={styles.profile_btn} 
-               onPress={() => navigation.navigate('Profile')}>
+               onPress={() => handleNav('HomeStack','Profile', navRoot)}>
                 
                 <Text>
                   Profile
