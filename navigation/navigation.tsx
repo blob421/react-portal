@@ -7,9 +7,12 @@ import MessageDetail from '../app/messages_detail'
 import Tasks from '../app/tasks'
 import Profile from '../app/profile'
 import Loading from '../app/loading'
+import Team from '../app/team'
+import Chat from '../app/chat'
 
 import { RootStackParamList, HomestackParamList, MessageStackParamList, LoginStackParamList,
-  TaskStackParamList, LoadingStackParamList} from './types';
+  TaskStackParamList, LoadingStackParamList, TeamStackParamList, ChatStackParamList
+} from './types';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -18,6 +21,37 @@ const MsgStack = createNativeStackNavigator<MessageStackParamList>();
 const LoginStack = createNativeStackNavigator<LoginStackParamList>();
 const TaskStack = createNativeStackNavigator<TaskStackParamList>();
 const LoadingStack = createNativeStackNavigator<LoadingStackParamList>();
+const TeamStack = createNativeStackNavigator<TeamStackParamList>();
+const ChatStask = createNativeStackNavigator<ChatStackParamList>();
+
+
+function ChatStackScreens(){
+  return (
+    <ChatStask.Navigator initialRouteName='Chat'
+       screenOptions={{
+        headerStyle: { backgroundColor: '#7e614cff' },
+        headerTintColor: '#fff'
+      }}
+    >
+        <ChatStask.Screen name="Chat" component={Chat} />
+      
+    </ChatStask.Navigator>
+  )
+}
+
+function TeamStackScreens(){
+  return (
+    <TeamStack.Navigator initialRouteName='Team'
+       screenOptions={{
+        headerStyle: { backgroundColor: '#7e614cff' },
+        headerTintColor: '#fff'
+      }}
+    >
+        <TeamStack.Screen name="Team" component={Team} />
+      
+    </TeamStack.Navigator>
+  )
+}
 
 function LoadingStackScreen(){
   return (
@@ -80,11 +114,13 @@ export default function Navigation() {
     
       <Stack.Navigator initialRouteName="LoginStack"
           screenOptions={{ headerShown: false }} >
+        <Stack.Screen name= 'TeamStack' component = {TeamStackScreens}/>
         <Stack.Screen name = 'LoginStack' component = {LoginStackScreen}/>
         <Stack.Screen name="HomeStack" component={Homestack} />
         <Stack.Screen name="MessageStack" component={MessageStack} />
         <Stack.Screen name='TaskStack' component={TaskStackScreens}/>
         <Stack.Screen name= 'LoadingStack' component={LoadingStackScreen}/>
+        <Stack.Screen name = 'ChatStack' component={ChatStackScreens}/>
       </Stack.Navigator>
   
   );

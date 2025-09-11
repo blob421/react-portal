@@ -1,5 +1,5 @@
 import React, { use } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet, RootTagContext } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp} from '@react-navigation/native-stack';
 
@@ -29,7 +29,7 @@ export default function Navbar() {
             </Text>
         </Pressable>
         
-        <Pressable style={styles.link}>
+        <Pressable onPress={() => handleNav('TeamStack', 'Team', navRoot)} style={styles.link}>
         <Text>
             Team
         </Text>
@@ -52,7 +52,7 @@ export default function Navbar() {
         </Text>
         </Pressable>
           
-        <Pressable style={styles.link}>
+        <Pressable onPress={() => handleNav('ChatStack', 'Chat', navRoot)} style={styles.link}>
         <Text>
             Chat
         </Text>

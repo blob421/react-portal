@@ -1,6 +1,13 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 
 
+export type ChatStackParamList = {
+  Chat : undefined
+}
+
+export type TeamStackParamList = {
+  Team : undefined
+}
 export type LoadingStackParamList = {
   Loading :  {id:string, photo:string}
 }
@@ -28,6 +35,8 @@ export type RootStackParamList = {
   LoginStack: NavigatorScreenParams<LoginStackParamList>;
   TaskStack: NavigatorScreenParams<TaskStackParamList>;
   LoadingStack : NavigatorScreenParams<LoadingStackParamList>;
+  TeamStack: NavigatorScreenParams<TeamStackParamList>;
+  ChatStack : NavigatorScreenParams<ChatStackParamList>;
 };
 
 
