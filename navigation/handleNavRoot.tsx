@@ -9,7 +9,7 @@ import checkAuth from './checkAuth'
     navRoot:any,
     ) {
       const isAuth = await checkAuth();
-      console.log(isAuth)
+      
       if (isAuth) {
        
         navRoot.navigate(target, {screen:sub});

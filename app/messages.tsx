@@ -93,7 +93,8 @@ return (
         <View>
                <View style={styles.search_cont}>
                    <TextInput placeholder='Search' value={term} 
-                                     onChangeText={setTerm} style={styles.input}></TextInput>
+                              onChangeText={setTerm} style={styles.input} returnKeyType="send"
+                              onSubmitEditing={filterMessages}></TextInput>
 
                    <Pressable style={styles.go_btn} onPress={filterMessages}>
                     <Text style={styles.go_txt}>Go</Text>
@@ -103,18 +104,21 @@ return (
              <View style={styles.msgs_cont}> 
                 <ScrollView >
                     {data?.data?.map((message) => (
-                    <View key={message.id} style={styles.msg_div}>
-
-                      <Pressable onPress={() => handleNav('Message_detail', navMsg, navRoot, 
+                        <Pressable key={message.id} onPress={
+                          () => handleNav('Message_detail', navMsg, navRoot, 
                         {id: message.id})}>
+                    <View  style={styles.msg_div}>
+
+                    
 
                         <Text style = {[styles.msg_txt, message.new === true && styles.new_msg_txt]}>
                         <Text style={styles.sender}>{message.sender}: </Text> 
                         {message.title}
                         </Text>
                     
-                      </Pressable>
                     </View>
+                  </Pressable>
+
                   ))}
                 
                 </ScrollView>

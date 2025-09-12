@@ -9,9 +9,8 @@ import checkAuth from './checkAuth'
     param:any
     ) {
       const isAuth = await checkAuth();
-      console.log(isAuth)
+      
       if (isAuth) {
-        console.log(param)
         navigation.navigate(target, param);
       } else {
         navRoot.navigate('Login', {screen:'Login'});

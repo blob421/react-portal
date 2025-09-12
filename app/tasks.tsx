@@ -72,8 +72,9 @@ return (
           <ScrollView>
            
               {data?.data?.map((task) => (
-                <Pressable onPress={()=> handleNav('Task', navTask, navRoot, {id:task.id} )}> 
-                      <View key={task.id} style={styles.task_div}>
+                <Pressable key={task.id} onPress={
+                  ()=> handleNav('Task', navTask, navRoot, {id:task.id} )}> 
+                      <View  style={styles.task_div}>
                         <Text>
                           {task.name}
                           </Text>

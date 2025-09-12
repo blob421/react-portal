@@ -4,13 +4,12 @@ export default StyleSheet.create({
 
 
  outer_div:{
-        position: 'absolute', top: 0, left: 0,right: 0,bottom: 0,
-         backgroundColor:'#f7eacfff', display:'flex', alignItems:'center', 
-         flexDirection:'column'
+        
+         backgroundColor:'#f7eacfff', flex:1, 
  },
  search_cont:{
-       display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center',
-        marginTop:10, marginBottom:10
+       flexDirection:'row', justifyContent:'center', alignItems:'center',
+       height:'13%'
        
  },
  go_btn:{
@@ -24,15 +23,15 @@ export default StyleSheet.create({
  },
  input:{
        backgroundColor:'#FFFFFF',borderWidth: 2,borderColor: 'black', 
-       borderStyle: 'solid', borderRadius:6, width:'67%', height:40
+       borderStyle: 'solid', borderRadius:6, width:'67%', height:40, paddingLeft:9, margin:5
  },
  msgs_cont:{
-        backgroundColor:'#8997a9ff', paddingTop:0, width:'100%', height:'90%',
-        display:'flex', alignItems:'center', flexDirection:'column',
+        backgroundColor:'#99aac1ff', height:'87%',paddingTop:25,
+        flexDirection:'column', 
  },
  msg_div:{
-       padding:40, backgroundColor:'#e8e8e8ff', color:'#FFFFFF',
-       margin:2,borderWidth: 3,borderColor: 'black', borderStyle: 'solid', borderRadius:6, 
+       padding:40, backgroundColor:'#f7f7f7ff', color:'#FFFFFF',
+       margin:2,borderWidth: 3,borderColor: 'black', borderStyle: 'solid', borderRadius:26, 
       
        
        
@@ -49,5 +48,5 @@ export default StyleSheet.create({
  },
  sender:{
        fontWeight:'bold'
- }
+ },
 })

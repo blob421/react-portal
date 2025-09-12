@@ -7,13 +7,17 @@ import handleNav from 'navigation/handleNavParams';
 import { RootStackParamList, MessageStackParamList } from '../navigation/types'; 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import checkAuth from 'navigation/checkAuth';
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
+
 
 export default function MessageDetail() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
-
+  const [modalVisible3, setModalVisible3] = useState(false);
+  const [n_documents, setNDocuments] = useState(0);
   const [recipient_id, setRecId] = useState(null);
   const [recipient_name, setRecName] = useState("");
 
@@ -22,6 +26,33 @@ export default function MessageDetail() {
   const navRoot = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { id } = route.params;
   const API_URL = process.env.EXPO_PUBLIC_PORTAL_IP;
+  const MEDIA_URL = process.env.EXPO_PUBLIC_MEDIA_ENDPOINT;
+
+
+
+
+const downloadFile = async (path: string, fileName: string) => {
+  const remoteUrl = MEDIA_URL + path;
+  const localUri = FileSystem.documentDirectory + fileName;
+
+  try {
+    await FileSystem.downloadAsync(remoteUrl, localUri);
+
+    const isAvailable = await Sharing.isAvailableAsync();
+    if (isAvailable) {
+      await Sharing.shareAsync(localUri);
+    }
+
+    // Clean up after sharing
+    await FileSystem.deleteAsync(localUri, { idempotent: true });
+    setModalVisible3(false)
+    console.log('File deleted after sharing');
+  } catch (error) {
+    console.error('Error handling file:', error);
+  }
+};
+
+
 
   const forwardMessage = async () => {
           const token = await AsyncStorage.getItem('accessToken');
@@ -57,6 +88,11 @@ export default function MessageDetail() {
     console.log(error)
   }}
 
+ useEffect(()=>{
+    const n_doc = data?.data?.documents.length
+    setNDocuments(n_doc)
+ },[data])
+
 
   useFocusEffect(
    useCallback(() => {
@@ -82,9 +118,12 @@ export default function MessageDetail() {
           },
         });
         const result = await response.json();
-        console.log(result)
-        setData(result);
+       
+     
+        setData(result);   
         setLoading(false);
+
+
         if (result.data?.new === true){
        
         await fetch(`${API_URL}messages/${id}/`, {
@@ -148,8 +187,8 @@ return (
               <Pressable onPress={()=> setModalVisible(true)} style={styles.completed_btn}>
               <Text>Forward</Text>
               </Pressable>
-              <Pressable style={styles.completed_btn}>
-              <Text>Files</Text>
+              <Pressable onPress={()=> setModalVisible3(true)} style={styles.completed_btn} >
+              <Text>Files ({n_documents})</Text>
               </Pressable>
            </View>
 
@@ -219,7 +258,43 @@ return (
               </View>
             </View>
           </Modal>
+
+
+                <Modal 
+            transparent={true}
+            animationType="fade"
+            visible={modalVisible3}
+            onRequestClose={() => setModalVisible3(false)}
+          >
+            <View style={styles.overlay}>
+              <View style={styles.modalContent}>
+                <Text style={styles.header}>Recipients</Text>
+                 <View style={styles.recipient_cont}>
+                     <ScrollView>
+                      {data?.data?.documents?.map((doc)=>(
+                          <View key={doc.id} style={styles.contacts_div}>
+                  
+                             <Pressable onPress={()=> {downloadFile(doc.path, doc.name)}}>
+                                  <Text>{doc.name}</Text>
+                             </Pressable>
+                           
+                               
+                          </View>
+                      ))}
+                        
+                     </ScrollView>
+                 </View>
+                <Pressable onPress={() => setModalVisible3(false)} style={styles.closeButton}>
+                  <Text style={styles.closeText}>Close</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
     </View>
+
+
+  
+
 )}
 
 
