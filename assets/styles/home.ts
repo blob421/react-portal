@@ -11,7 +11,7 @@ export default StyleSheet.create({
        marginTop:2, fontSize:25
 },
  border_msg : {
-       backgroundColor:'#725237ff', height:'79%', width:'100%', justifyContent:'center', 
+       backgroundColor:'#8a684dff', height:'79%', width:'100%', justifyContent:'center', 
        alignItems:'center', padding:11, paddingBottom:30, paddingTop:20,
        
  },
@@ -20,11 +20,11 @@ export default StyleSheet.create({
        
  },
  profile_div:{
- backgroundColor:'#725237ff', width:'100%', height:'20%', alignItems:'center'
+ backgroundColor:'#8a684dff', width:'100%', height:'20%', alignItems:'center'
  },
  profile_btn:{
-      backgroundColor:'#dfdfdfff',
-      padding:10, width:'95%'
+      backgroundColor:'#eceaeaff',
+      padding:10, width:'25%', alignItems:'center'
  }
  
 })

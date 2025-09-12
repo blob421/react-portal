@@ -4,11 +4,13 @@ import LoginScreen from '../app/login';
 import Home from '../app/home';
 import Messages from '../app/messages'
 import MessageDetail from '../app/messages_detail'
+import Task from '../app/task_detail'
 import Tasks from '../app/tasks'
 import Profile from '../app/profile'
 import Loading from '../app/loading'
 import Team from '../app/team'
 import Chat from '../app/chat'
+import MessageForm from '../app/message_form'
 
 import { RootStackParamList, HomestackParamList, MessageStackParamList, LoginStackParamList,
   TaskStackParamList, LoadingStackParamList, TeamStackParamList, ChatStackParamList
@@ -55,14 +57,22 @@ function TeamStackScreens(){
 
 function LoadingStackScreen(){
   return (
-      <LoadingStack.Navigator>
+      <LoadingStack.Navigator
+       screenOptions={{
+        headerStyle: { backgroundColor: '#7e614cff' },
+        headerTintColor: '#fff'
+      }}>
          <LoadingStack.Screen name="Loading" component={Loading} />
       </LoadingStack.Navigator>
   )
 }
 function LoginStackScreen(){
   return (
-      <LoginStack.Navigator>
+      <LoginStack.Navigator
+       screenOptions={{
+        headerStyle: { backgroundColor: '#7e614cff' },
+        headerTintColor: '#fff'
+      }}>
          <LoginStack.Screen name="Login" component={LoginScreen} />
       </LoginStack.Navigator>
   )
@@ -94,6 +104,7 @@ function MessageStack(){
     >
         <MsgStack.Screen name="Messages" component={Messages} />
         <MsgStack.Screen name='Message_detail' component={MessageDetail}/>
+        <MsgStack.Screen name='MessageForm' component={MessageForm}/>
     </MsgStack.Navigator>
   )
 }
@@ -104,6 +115,7 @@ function TaskStackScreens(){
         headerStyle: { backgroundColor: '#7e614cff' },
         headerTintColor: '#fff'
       }}>
+      <TaskStack.Screen name = 'Task' component = {Task}/>
      <TaskStack.Screen name="Tasks" component={Tasks} />
    </TaskStack.Navigator>
   )

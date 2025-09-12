@@ -19,13 +19,18 @@ export default async function checkAuth(){
               const response = await fetch(`${API_URL}jwt/refresh/`,{
                   method: 'POST',
               headers: {
-            'authorization': `Bearer ${refresh}`,
-            'Content-Type': 'application/json'}
-              }
-              )
+          
+                'Content-Type': 'application/json'
+             },
+              body: JSON.stringify({
+                  refresh: refresh
+                })
+          });
               if (response.status === 400){
                 return false
               }
+              const data = await response.json();
+             await AsyncStorage.setItem('accessToken', data.access)
 
           }catch(error){
           console.log(error)

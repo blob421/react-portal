@@ -10,9 +10,9 @@ export default StyleSheet.create({
  },
 
  task_div:{
-     padding:20, margin:1, borderRadius:7,
+     padding:20, margin:1, borderRadius:5,
       borderWidth: 3,borderColor: '#212121ff', borderStyle: 'solid',
-      backgroundColor:'#c9c9c9ff'
+      backgroundColor:'#ffffffff'
  },
  date_text:{
    paddingTop:10

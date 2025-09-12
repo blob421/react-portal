@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View,Text, TextInput, Button, Alert } from 'react-native';
+import { View,Text, TextInput, Button, Alert, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/types'; // adjust path
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import styles from '../assets/styles/Login';
-
+import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('');
@@ -41,13 +41,16 @@ console.log("Data:", data);
   };
 
   return (
+     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <View style={styles.outer_div}>
           
-        <View style={styles.form_div}>
-
-            <Text style={styles.title}>
-             Welcome
-            </Text>
+       
+           <View style={styles.title_div}>
+                <Text style={styles.title}>
+                Welcome
+                </Text>
+           </View>
+          <View style={styles.form_div}>
 
             <TextInput 
               placeholder="Username"
@@ -61,10 +64,24 @@ console.log("Data:", data);
               onChangeText={setPassword}
               secureTextEntry
               style={styles.inputs}/>
+              <View style={styles.btn_div}>
 
-              <Button title="Login" onPress={handleLogin} />
+                
+                  <Pressable onPress={handleLogin} style={styles.login_btn}>
+                  <Text style={styles.login_text}>
+                    Login
+                  </Text>
+                  </Pressable>
+               </View>
+                 
 
+               
          </View>
+                <View style={styles.bottom_banner}>
+
+               </View>
+         
     </View>
+</TouchableWithoutFeedback>
   );
 }

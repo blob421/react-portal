@@ -23,9 +23,11 @@ export type LoginStackParamList = {
 export type MessageStackParamList = {
     Messages: undefined;
   Message_detail: { id: number };
+  MessageForm: {id: number, recipient:string}
 }
 export type TaskStackParamList = {
   Tasks: undefined
+  Task : {id: number}
 
  
 };
